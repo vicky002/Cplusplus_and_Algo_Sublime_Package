@@ -1,0 +1,10 @@
+<snippet>
+	<content><![CDATA[
+ int gray(int n) {
+	return n ^ (n >> 1);
+}
+]]></content>
+	
+	<tabTrigger>gray</tabTrigger>
+	<scope>source.c++</scope> 
+</snippet>

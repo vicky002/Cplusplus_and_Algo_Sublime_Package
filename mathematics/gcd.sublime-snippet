@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+long long gcd (long long a, long long b) {
+	return b ? gcd (b, a % b) : a;
+}
+
+]]></content>
+	
+	<tabTrigger>gcd</tabTrigger>
+
+	 <scope>source.c++</scope>
+</snippet>
