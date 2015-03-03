@@ -1,0 +1,35 @@
+<snippet>
+	<content><![CDATA[
+void build(int l, int r, int nd){
+	if(l == r)	${1:seg}[nd] = ${2:A}[l];
+	else{
+		int mid = (l + r)/2;
+		build(l, mid, nd*2);	build(mid + 1, r, nd*2 + 1);
+		${1:seg}[nd] = ${3:max}(${1:seg}[nd*2], ${1:seg}[nd*2 + 1]);
+	}
+}
+
+void update(int l, int r, int nd, int x, int val){
+	if(l == r)	${1:seg}[nd] = val;
+	else{
+		int mid = (l + r)/2;
+		if(x <= mid)	update(l, mid, nd*2, x, val);
+		else update(mid + 1, r, nd*2 + 1, x, val);
+		${1:seg}[nd] = ${3:max}(${1:seg}[nd*2], ${1:seg}[nd*2 + 1]);
+	}
+}
+
+int query(int l, int r, int nd, int x, int y){
+	if(l >= x && r <= y)	return ${1:seg}[nd];
+	else if(l > y || r < x)	return 0;
+	else{
+		int mid = (l + r)/2;
+		return ${3:max}(query(l, mid, nd*2, x, y), query(mid + 1, r, nd*2 + 1, x, y));
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segTree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
