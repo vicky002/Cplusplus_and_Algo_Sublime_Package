@@ -1,0 +1,69 @@
+<snippet>
+	<content><![CDATA[
+void computeLPS(string pattern, vec &lps, int m);
+
+void KMP(string text, string pattern)
+{
+    int n = text.length();
+    int m = pattern.length();
+    vec lps(m,0);
+    
+    computeLPS(pattern, lps, m);
+    int i = 0, j = 0;
+    while(i < n)
+    {
+        if(text[i] == pattern[j])
+        {
+            i++;
+            j++;
+        }
+        if(j == m)
+        {
+            //uncomment this to get a list of starting positions
+            //if exists of the pattern string in the original
+            // cout<<"Pattern found at: "<<i-j<<'\n';
+            j = lps[j-1];
+        }
+        else if(i < n && pattern[j] != text[i])
+        {
+            if(j != 0)
+            {
+                j = lps[j-1];
+            }
+            else
+            {
+                i = i + 1;
+            }
+        }
+        
+    }
+}
+
+void computeLPS(string pattern, vec &lps, int m)
+{
+    int len = 0;
+    lps[0] = 0;
+    int i = 1;
+    while(i < m)
+    {
+        if(pattern[i] == pattern[len])
+        {
+            len++;
+            lps[i] = len;
+            i++;
+        }
+        else if(pattern[i] != pattern[len] && len != 0)
+        {
+            len = lps[len-1];
+        }
+        else
+        {
+            lps[i] = 0;
+            ++i;
+        }
+    }
+}
+]]></content>
+	<tabTrigger>kmp</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>
